@@ -1,8 +1,8 @@
 library(xgboost)
-load("~/SHAPInference/SAGE/xgbmodel_V2.RData")
+load("~/xgbmodel.RData")
 model = xgb.Booster.complete(model)
 
-load("DataForTraining_sdnoise2_V2.RData")
+load("DataForTraining_sdnoise2.RData")
 DataForTraining = as.matrix(DataForTraining[,1:100])
 #Compute SHAP value using training data:
 
