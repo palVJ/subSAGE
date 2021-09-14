@@ -24,3 +24,6 @@ estimate = subSage_cpp(data,trees,feature,loss = "RMSE")
 
 In the preprint we show how to do paired bootstrapping for tree ensemble models, and use syntetic data to emphasize that
 independent test data must be used to estimate subSAGE values:
+
+![alt text](https://github.com/palVJ/subSAGE/blob/main/HistBootstrapsSAGE.pdf?raw=true)
+
