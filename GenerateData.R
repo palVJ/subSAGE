@@ -56,5 +56,5 @@ Testdata = data[r,]
 
 DataForTraining = data[-r,]
 
-save(Testdata,file = "~/TestData_sdnoise2.RData")
-save(DataForTraining,file = "~/DataForTraining_sdnoise2.RData")
+save(Testdata,file = "~/subSAGE/TestData_sdnoise2.RData")
+save(DataForTraining,file = "~/subSAGE/DataForTraining_sdnoise2.RData")
