@@ -56,6 +56,5 @@ Testdata = data[r,]
 
 DataForTraining = data[-r,]
 
-save(Testdata,file = "~/SHAPInference/SAGE/TestData_sdnoise2_V2.RData")
-save(DataForTraining,file = "~/SHAPInference/SAGE/DataForTraining_sdnoise2_V2.RData")
-save(error,file = "~/SHAPInference/SAGE/ErrorUsedInV2.RData")
+save(Testdata,file = "~/TestData_sdnoise2.RData")
+save(DataForTraining,file = "~/DataForTraining_sdnoise2.RData")
