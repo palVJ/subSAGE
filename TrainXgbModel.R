@@ -28,6 +28,6 @@ model <- xgb.train(data = dtrain, max_depth = 2,
                    early_stopping_rounds = 20)
 
 #save model
-save(model,file = "xgbmodel_V2.RData")
+save(model,file = "xgbmodel.RData")
 
 }
