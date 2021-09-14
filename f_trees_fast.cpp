@@ -78,7 +78,7 @@ NumericVector f_trees_cpp_vec(const IntegerVector &Features,const NumericVector 
 }
 
 // [[Rcpp::export]]
-double RedSAGE_per_S_linreg(const IntegerVector &Features,const DataFrame &Feat_vals_S, const DataFrame &Feat_vals_SuK, const IntegerVector &feat_names_S,
+double subSAGE_per_S_linreg(const IntegerVector &Features,const DataFrame &Feat_vals_S, const DataFrame &Feat_vals_SuK, const IntegerVector &feat_names_S,
                      const IntegerVector &feat_names_SuK,const NumericVector &Prediction,const IntegerVector &Yes,const IntegerVector &No,
                      const NumericVector &Split,const NumericVector &Cover,const IntegerVector &feature_trees,const IntegerVector &roots_at_bar_trees,
                      const NumericVector &response,int &n_inds){
@@ -106,7 +106,7 @@ double RedSAGE_per_S_linreg(const IntegerVector &Features,const DataFrame &Feat_
 }
 
 // [[Rcpp::export]]
-double RedSAGE_per_S_logreg(const IntegerVector &Features,const DataFrame &Feat_vals_S, const DataFrame &Feat_vals_SuK, const IntegerVector &feat_names_S,
+double subSAGE_per_S_logreg(const IntegerVector &Features,const DataFrame &Feat_vals_S, const DataFrame &Feat_vals_SuK, const IntegerVector &feat_names_S,
                      const IntegerVector &feat_names_SuK,const NumericVector &Prediction,const IntegerVector &Yes,const IntegerVector &No,
                      const NumericVector &Split,const NumericVector &Cover,const IntegerVector &feature_trees,const IntegerVector &roots_at_bar_trees,
                      const NumericVector &response,int &n_inds){
@@ -134,9 +134,5 @@ double RedSAGE_per_S_logreg(const IntegerVector &Features,const DataFrame &Feat_
 }
 
 
-// You can include R code blocks in C++ files processed with sourceCpp
-// (useful for testing and development). The R code will be automatically 
-// run after the compilation.
-//
 
 
