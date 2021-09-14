@@ -147,62 +147,11 @@ compute_statistic = function(data,other_feats,n_inds,trees,k_set,feature_trees,r
 }
 
 compute_statistic_cpp = function(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,
-                                 k_set,feature_trees,roots_at_bar_trees){
-  
-  
-  library(Rcpp)
-  sourceCpp("~/project/SAGE/f_trees_fast.cpp")
-  
-  feat_k_name = as.integer(colnames(k_set))
-  statistic = 0
-  M = length(other_feats) + 1
-  for(i in 1:(M+1)){
-    if(i <= M -1){
-      feat_names_S = as.integer(other_feats[i])
-      feat_names_SuK = as.integer(c(feat_names_S,feat_k_name))
-      #The Shapley weight:
-      weight = 1/(3*(M-1))
-    }else if(i == M){
-      #S = phi, the empty set symbolized as S = {-1}:
-      feat_names_S = -1
-      feat_names_SuK = feat_k_name
-      #The Shapley weight:
-      weight = 1/3
-    }else{
-      #S = {M-1}, the set of all features in M \ {k}:
-      feat_names_S = other_feats
-      feat_names_SuK = c(other_feats,feat_k_name)
-      #The Shapley weight:
-      weight = 1/3
-    }
-    ret = rep(0,n_inds)
-    for(j in 1:n_inds){
-      temp = feat_names_S + 1
-      feat_vals_S = as.numeric(unlist(data[j,..temp]))
-      feat_vals_SuK = c(feat_vals_S,as.numeric(k_set[j,]))
-      
-      EfSuK = sum(f_trees_cpp_vec(Features = Features,Feat_vals = feat_vals_SuK,feat_names = feat_names_SuK ,Prediction = Prediction,
-                                  Yes = Yes,No = No,Split = Split,Cover = Cover,nodes = feature_trees))
-      EfS = sum(f_trees_cpp_vec(Features = Features,Feat_vals = feat_vals_S,feat_names = feat_names_S ,Prediction = Prediction,
-                                Yes = Yes,No = No,Split = Split,Cover = Cover,nodes = feature_trees))
-      Ef_bartrees_S = sum(f_trees_cpp_vec(Features = Features,Feat_vals = feat_vals_S,feat_names = feat_names_S ,Prediction = Prediction,
-                                          Yes = Yes,No = No,Split = Split,Cover = Cover,nodes = roots_at_bar_trees ))
-      
-      
-      ret[j] = 2*data$response[j]*(EfSuK-EfS) + EfS^2 - EfSuK^2 + 2*Ef_bartrees_S*(EfSuK-EfS)
-    }
-    statistic  = statistic + weight*mean(ret)
-  }
-  
-  return(statistic)
-}
-
-compute_statistic_cpp_v2 = function(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,
                                  k_set,feature_trees,roots_at_bar_trees,loss){
   
   
   library(Rcpp)
-  sourceCpp("~/project/SAGE/f_trees_fast.cpp")
+  sourceCpp("~/subSAGE/f_trees_fast.cpp")
   
   feat_k_name = as.integer(rownames(k_set))
   statistic = 0
@@ -240,13 +189,13 @@ compute_statistic_cpp_v2 = function(data,other_feats,n_inds,Features,Prediction,
   
     response = data$response
     if(loss == "RMSE"){
-    	MeanRet = RedSAGE_per_S_linreg(Features = Features,Feat_vals_S = Feat_vals_S, Feat_vals_SuK = Feat_vals_SuK ,feat_names_S = feat_names_S,
+    	MeanRet = subSAGE_per_S_linreg(Features = Features,Feat_vals_S = Feat_vals_S, Feat_vals_SuK = Feat_vals_SuK ,feat_names_S = feat_names_S,
                             	feat_names_SuK = feat_names_SuK,Prediction = Prediction,Yes = Yes,No = No,Split = Split,Cover = Cover,
                             	feature_trees = feature_trees,roots_at_bar_trees = roots_at_bar_trees,response = response,n_inds = n_inds)
 
     }else if(loss == "binary:logistic"){
 
-	MeanRet = RedSAGE_per_S_logreg(Features = Features,Feat_vals_S = Feat_vals_S, Feat_vals_SuK = Feat_vals_SuK ,feat_names_S = feat_names_S,
+	MeanRet = subSAGE_per_S_logreg(Features = Features,Feat_vals_S = Feat_vals_S, Feat_vals_SuK = Feat_vals_SuK ,feat_names_S = feat_names_S,
                                 feat_names_SuK = feat_names_SuK,Prediction = Prediction,Yes = Yes,No = No,Split = Split,Cover = Cover,
                                 feature_trees = feature_trees,roots_at_bar_trees = roots_at_bar_trees,response = response,n_inds = n_inds)
 
@@ -334,9 +283,9 @@ subSage_cpp = function(data,trees,feature,loss){
   Cover = trees$Cover
   
   if(loss == "RMSE"){
-  	b = compute_statistic_cpp_v2(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,k_set,feature_trees,roots_at_bar_trees,loss = "RMSE")
+  	b = compute_statistic_cpp(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,k_set,feature_trees,roots_at_bar_trees,loss = "RMSE")
   }else if(loss == "binary:logistic"){
-	b = compute_statistic_cpp_v2(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,k_set,feature_trees,roots_at_bar_trees,loss = "binary:logistic")
+	b = compute_statistic_cpp(data,other_feats,n_inds,Features,Prediction,Yes,No,Split,Cover,k_set,feature_trees,roots_at_bar_trees,loss = "binary:logistic")
   }
     
   return(b)
