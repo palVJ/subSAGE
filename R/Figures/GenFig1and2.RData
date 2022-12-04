@@ -1,0 +1,91 @@
+#Histograms of reduced SAGE:
+par(bg=NA)
+col_skyblue = col2rgb(col = "skyblue")
+skyblue_transparent = rgb(col_skyblue[1,1],col_skyblue[2,1],col_skyblue[3,1],max = 255,alpha = 80)
+
+col_orange = col2rgb(col = "orange")
+orange_transparent = rgb(col_orange[1,1],col_orange[2,1],col_orange[3,1],max = 255,alpha = 80)
+
+load("~/subSAGE/R/Figures/Histx6.RData")
+load("~/subSAGE/R/Figures/SAGE_estimatefeatx6.RData")
+h$counts = h$counts/sum(h$counts)
+par(mfrow = c(2,2))
+plot(h,xlab = "x6",col = skyblue_transparent,main = "")
+abline(v = estimate,col = "blue")
+load("~/subSAGE/R/Figures/Hist_Train_x6.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateOnTrainfeatx6.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x6",col = orange_transparent,main = "",ylab = "",add = TRUE)
+leg = legend("topleft" , c("Test","Training"), fill=c(skyblue_transparent,orange_transparent),cex = 1.05,plot = FALSE)
+leftx <- leg$rect$left
+rightx <- (leg$rect$left + leg$rect$w) * 1.03
+topy <- leg$rect$top
+bottomy <- (leg$rect$top - leg$rect$h) * 1
+legend(x = c(leftx,rightx),y = c(topy,bottomy) , c("Test","Training"), fill=c(skyblue_transparent,orange_transparent),cex = 1.05,plot = TRUE)
+abline(v = estimate,col = "red")
+
+
+load("~/subSAGE/R/Figures/Histx1.RData")
+load("~/subSAGE/R/Figures/SAGE_estimatefeatx1.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x1",col = skyblue_transparent,main = "",ylab = "",ylim = c(0,0.5))
+abline(v = estimate,col = "blue")
+load("~/subSAGE/R/Figures/Hist_Train_x1.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateOnTrainfeatx1.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x1",col = orange_transparent,main = "",ylab = "",add = TRUE)
+abline(v = estimate,col = "red")
+
+
+
+load("~/subSAGE/R/Figures/Histx2.RData")
+load("~/subSAGE/R/Figures/SAGE_estimatefeatx2.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x2",col = skyblue_transparent,main = "",ylim = c(0,0.26))
+abline(v = estimate,col = "blue")
+load("~/subSAGE/R/Figures/Hist_Train_x2.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateOnTrainfeatx2.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x2",col = orange_transparent,main = "",ylab = "",add = TRUE)
+abline(v = estimate,col = "red")
+
+load("~/subSAGE/R/Figures/Histx12.RData")
+load("~/subSAGE/R/Figures/SAGE_estimatefeatx12.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x12",col = skyblue_transparent,main = "",ylab = "",xlim = c(-0.04,0.04),ylim = c(0,0.36))
+abline(v = estimate,col = "blue")
+load("~/subSAGE/R/Figures/Hist_Train_x12.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateOnTrainfeatx12.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "x12",col = orange_transparent,main = "",ylab = "",add = TRUE)
+abline(v = estimate,col = "red")
+
+dev.copy(png,'histplot_train_vs_test.png')
+dev.off()
+
+
+par(mfrow = c(2,2))
+load("~/subSAGE/R/Figures/Hist_obesity_rs17817449_G.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateObesityfeatrs17817449_G.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "rs17817449",col = skyblue_transparent,main = "")
+abline(v = estimate,col = "blue")
+
+load("~/subSAGE/R/Figures/Hist_obesity_rs13393304_A.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateObesityfeatrs13393304_A.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "rs13393304",col = skyblue_transparent,main = "",ylab = "")
+abline(v = estimate,col = "blue")
+
+load("~/subSAGE/R/Figures/Hist_obesity_rs2820312_A.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateObesityfeatrs2820312_A.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "rs2820312",col = skyblue_transparent,main = "")
+abline(v = estimate,col = "blue")
+
+load("~/subSAGE/R/Figures/Hist_obesity_rs7318381_C.RData")
+load("~/subSAGE/R/Figures/SAGE_estimateObesityfeatrs7318381_C.RData")
+h$counts = h$counts/sum(h$counts)
+plot(h,xlab = "rs7318381",col = skyblue_transparent,main = "")
+abline(v = estimate,col = "blue")
+
